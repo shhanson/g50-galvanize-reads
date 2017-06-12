@@ -8,6 +8,7 @@ exports.up = knex =>
         table.string('last_name').notNullable().defaultTo('');
         table.text('bio').notNullable().defaultTo('');
         table.text('portrait_url').notNullable().defaultTo('');
+        table.timestamps(true, true);
     });
 
 //Drop the 'authors' table from the database

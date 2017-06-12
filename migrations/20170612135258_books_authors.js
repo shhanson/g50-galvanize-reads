@@ -5,6 +5,7 @@ exports.up = knex =>
     knex.schema.createTable('books_authors', (table) => {
         table.integer('book_id');
         table.integer('author_id');
+        table.timestamps(true, true);
     });
 
 
