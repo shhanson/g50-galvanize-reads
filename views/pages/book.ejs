@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Galvanize Reads -- <%= data.title %></title>
+    </head>
+    <body>
+
+        <h1><%= data.title %></h1>
+        <h3><%= data.genre %></h3>
+        <h3><%= data.description %></h3>
+        <img src="<%=data.cover_url%>">
+        <%for(let i = 0; i < data.authors.length; i++){ %>
+            <h1><%= data.authors[i].last_name %></h1>
+        <%} %>
+
+
+
+
+    </body>
+</html>
