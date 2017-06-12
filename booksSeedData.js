@@ -32,8 +32,7 @@ module.exports = [{
         id: 4,
         title: "You Don't Know JS: ES6 & Beyond",
         genre: 'JavaScript',
-        description: "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language. As part of the "
-        You Don’ t Know JS " series, this compact guide focuses on new features available in ECMAScript 6 (ES6), the latest version of the standard upon which JavaScript is built.",
+        description: "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language. As part of the \"You Don’t Know JS\" series, this compact guide focuses on new features available in ECMAScript 6 (ES6), the latest version of the standard upon which JavaScript is built.",
         cover_url: "https://s3-us-west-2.amazonaws.com/assessment-images/galvanize_reads/photos/es6_and_beyond.jpg",
         created_at: new Date(),
         updated_at: new Date()
@@ -51,8 +50,7 @@ module.exports = [{
         id: 6,
         title: "You Don't Know JS: Async & Performance",
         genre: "JavaScript",
-        description: "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language. As part of the "
-        You Don’ t Know JS " series, this concise yet in-depth guide focuses on new asynchronous features and performance techniques—including Promises, generators, and Web Workers—that let you create sophisticated single-page web applications and escape callback hell in the process.",
+        description: "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language. As part of the \"You Don’ t Know JS\" series, this concise yet in-depth guide focuses on new asynchronous features and performance techniques—including Promises, generators, and Web Workers—that let you create sophisticated single-page web applications and escape callback hell in the process.",
         cover_url: "https://s3-us-west-2.amazonaws.com/assessment-images/galvanize_reads/photos/async_and_performance.jpg",
         created_at: new Date(),
         updated_at: new Date()
