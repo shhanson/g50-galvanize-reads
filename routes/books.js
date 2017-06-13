@@ -53,7 +53,6 @@ router.get('/books', (req, res, next) => {
         }) //END CATCH
 }); //END GET
 
-
 //GET a book with the specified id
 router.get('/books/:id', (req, res, next) => {
     //Grab id from URL and check if it's valid
@@ -80,7 +79,6 @@ router.get('/books/:id', (req, res, next) => {
 
 //POST (add) a new book
 router.post('/books', (req, res) => {
-
     //If all book attributes are provided
     if(req.body.title && req.body.genre && req.body.description && req.body.cover_url){
         knex('book').insert({
@@ -98,7 +96,6 @@ router.post('/books', (req, res) => {
             next(err);
             knex.destroy();
         });
-
     } else {
         next();
     }
@@ -107,11 +104,50 @@ router.post('/books', (req, res) => {
 //PATCH (edit) a book with the specified id
 router.patch('/books/:id', (req, res) => {
 
+    let bookID = Number.parseInt(req.params.id);
+    if(bookID < 1 || Number.isNaN(bookID)){
+        next();
+    } else{
+        getBook(bookID).then( (result) => {
+            let book = result[0];
+            let updatedBook = {
+                title: req.body.title || book.title,
+                genre: req.body.genre || book.genre,
+                description: req.body.description || book.description,
+                cover_url: req.body.cover_url || book.cover_url
+            };
+
+
+
+        })
+        .then( (result) => {
+
+        })
+        .catch( (err) => {
+            console.error(err);
+            err.status = 500;
+            next(err);
+            knex.destroy();
+        });
+    }
+
 });
 
 //DELETE a book with the specified id
 router.delete('/books/:id', (req, res) => {
-
+    let bookID = Number.parseInt(req.params.id);
+    if(bookID < 1 || Number.isNaN(bookID)){
+        next();
+    } else{
+        getVideo(bookID).del().then( (result) => {
+            res.render('pages/bookremoved', {count: result});
+        }).catch( (err) => {
+            console.error(err);
+            err.status = 500;
+            next(err);
+            knex.destroy();
+        });
+    }
 });
 
 module.exports = router;
