@@ -10,35 +10,31 @@ const express = require('express');
 const router = express.Router();
 
 function getBook(id) {
+    //Query to fetch a book from "books" with the given id
     return knex('books')
-        //.join('books_authors', 'books.id', 'books_authors.book_id')
         .where('books.id', id);
 }
 
 function getAuthorsForBook(bookID) {
+    //Query that joins the 'authors' table with 'books_authors' and returns entries with book_id equal to the bookID provided
     return knex('authors')
         .join('books_authors', 'authors.id', 'books_authors.author_id')
         .where('books_authors.book_id', bookID);
 }
 
-function getBookWithAuthors(bookID){
+function getBookWithAuthors(bookID) {
+    //Calls getBook and getAuthorsForBook functions,
+    //'result' is an array with the following format:
+    // [ [array containing the requested book (length=1)] , [array of authors]]
     return Promise.all([
-        getBook(bookID),
-        getAuthorsForBook(bookID)
-    ])
-    .then( (result) => {
-        let book = result[0][0];
-        let bookObj = {};
-        bookObj.title = book.title;
-        bookObj.genre = book.genre;
-        bookObj.description = book.description;
-        bookObj.cover_url = book.cover_url;
-        bookObj.authors = result[1];
-        for(let i = 0; i < bookObj.authors.length; i++){
-            console.log(bookObj.authors[i]);
-        }
-        return bookObj;
-    });
+            getBook(bookID),
+            getAuthorsForBook(bookID)
+        ])
+        .then((result) => {
+            let [book, authors] = result;
+            return [book, authors];
+        });
+    //Do I need a catch here? or will it be handled below?
 }
 
 //GET all books
@@ -55,25 +51,30 @@ router.get('/books', (req, res, next) => {
             next(err);
             knex.destroy();
         }) //END CATCH
-
 }); //END GET
 
 
 //GET a book with the specified id
 router.get('/books/:id', (req, res, next) => {
-
+    //Grab id from URL and check if it's valid
     const bookID = Number.parseInt(req.params.id);
     if (bookID < 1 || Number.isNaN(bookID)) {
-        console.log("ILLEGAL ID");
         next();
     } else {
-        getBookWithAuthors(bookID).then( (result) => {
-            res.render('pages/book', {data: result});
-        })
-        .catch( (err) => {
-
-        })
-        //res.render('pages/book', {data: getBookWithAuthors(bookID)});
+        getBookWithAuthors(bookID).then((result) => {
+                //'result' is an array with the following format:
+                // [ [array containing the requested book (length=1)] , [array of authors]]
+                res.render('pages/book', {
+                    book: result[0][0],
+                    authors: result[1]
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+                err.status = 500;
+                next(err);
+                knex.destroy();
+            })
     } //END ELSE
 }); //END GET :id
 
