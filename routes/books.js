@@ -81,6 +81,27 @@ router.get('/books/:id', (req, res, next) => {
 //POST (add) a new book
 router.post('/books', (req, res) => {
 
+    //If all book attributes are provided
+    if(req.body.title && req.body.genre && req.body.description && req.body.cover_url){
+        knex('book').insert({
+            title: req.body.title,
+            genre: req.body.genre,
+            description: req.body.description,
+            cover_url: req.body.cover_url
+        }).then( (result) => {
+            res.render('pages/bookadded', {
+                data: result
+            });
+        }).catch( (err) => {
+            console.error(err);
+            err.status = 500;
+            next(err);
+            knex.destroy();
+        });
+
+    } else {
+        next();
+    }
 });
 
 //PATCH (edit) a book with the specified id
