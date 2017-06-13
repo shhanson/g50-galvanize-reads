@@ -8,6 +8,9 @@ const knex = require('knex')(config);
 //Setup for express server and router
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.json());
 
 function getBook(id) {
     //Query to fetch a book from "books" with the given id
@@ -78,57 +81,57 @@ router.get('/books/:id', (req, res, next) => {
 }); //END GET :id
 
 //POST (add) a new book
-router.post('/books', (req, res) => {
-    //If all book attributes are provided
-    if(req.body.title && req.body.genre && req.body.description && req.body.cover_url){
-        knex('book').insert({
-            title: req.body.title,
-            genre: req.body.genre,
-            description: req.body.description,
-            cover_url: req.body.cover_url
-        }).then( (result) => {
-            res.render('pages/bookadded', {
-                data: result
-            });
-        }).catch( (err) => {
+router.post('/books', (req, res, next) => {
+
+    knex('books').returning('id').insert({
+        title: req.body.title,
+        genre: req.body.genre,
+        description: req.body.description,
+        cover_url: req.body.cover_url
+    }).then((idArray) => {
+        getBook(idArray[0]).then((result) => {
+            res.render('pages/book', {book: result[0], authors: undefined});
+        }).catch((err) => {
             console.error(err);
             err.status = 500;
             next(err);
             knex.destroy();
         });
-    } else {
-        next();
-    }
+
+    }).catch((err) => {
+        console.error(err);
+        err.status = 500;
+        next(err);
+        knex.destroy();
+    });
 });
 
-//PATCH (edit) a book with the specified id
-router.patch('/books/:id', (req, res) => {
+//PUT (edit) a book with the specified id
+router.put('/books/:id', (req, res) => {
 
     let bookID = Number.parseInt(req.params.id);
-    if(bookID < 1 || Number.isNaN(bookID)){
+    if (bookID < 1 || Number.isNaN(bookID)) {
         next();
-    } else{
-        getBook(bookID).then( (result) => {
-            let book = result[0];
-            let updatedBook = {
-                title: req.body.title || book.title,
-                genre: req.body.genre || book.genre,
-                description: req.body.description || book.description,
-                cover_url: req.body.cover_url || book.cover_url
-            };
+    } else {
+        getBook(bookID).then((result) => {
+                let book = result[0];
+                let updatedBook = {
+                    title: req.body.title || book.title,
+                    genre: req.body.genre || book.genre,
+                    description: req.body.description || book.description,
+                    cover_url: req.body.cover_url || book.cover_url
+                };
 
+            })
+            .then((result) => {
 
-
-        })
-        .then( (result) => {
-
-        })
-        .catch( (err) => {
-            console.error(err);
-            err.status = 500;
-            next(err);
-            knex.destroy();
-        });
+            })
+            .catch((err) => {
+                console.error(err);
+                err.status = 500;
+                next(err);
+                knex.destroy();
+            });
     }
 
 });
@@ -136,12 +139,14 @@ router.patch('/books/:id', (req, res) => {
 //DELETE a book with the specified id
 router.delete('/books/:id', (req, res) => {
     let bookID = Number.parseInt(req.params.id);
-    if(bookID < 1 || Number.isNaN(bookID)){
+    if (bookID < 1 || Number.isNaN(bookID)) {
         next();
-    } else{
-        getVideo(bookID).del().then( (result) => {
-            res.render('pages/bookremoved', {count: result});
-        }).catch( (err) => {
+    } else {
+        knex('books').where('id', bookID).del().then((result) => {
+            // res.render('pages/books', {data: result});
+            res.sendStatus(200);
+
+        }).catch((err) => {
             console.error(err);
             err.status = 500;
             next(err);

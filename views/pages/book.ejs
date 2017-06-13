@@ -10,9 +10,11 @@
         <h3><%= book.genre %></h3>
         <h3><%= book.description %></h3>
         <img src="<%=book.cover_url%>">
-        <%for(let i = 0; i < authors.length; i++){ %>
-            <h1><%= authors[i].last_name %></h1>
-        <%} %>
+        <% if(authors !== undefined) { %>
+            <%for(let i = 0; i < authors.length; i++){ %>
+                <h1><%= authors[i].last_name %></h1>
+            <%} %>
+        <% } %>
 
 
 
