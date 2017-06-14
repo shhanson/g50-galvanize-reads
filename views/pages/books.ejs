@@ -5,6 +5,11 @@
         <title>Galvanize Reads -- Book listing</title>
     </head>
     <body>
-        <%= data %>
+        <%if(data === undefined) { %>
+            <h2>No books yet!</h2>
+        <%} else { %>
+            <%= data %>
+        <% }%>
+
     </body>
 </html>

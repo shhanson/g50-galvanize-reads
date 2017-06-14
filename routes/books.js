@@ -74,10 +74,15 @@ router.get('/books/:id', (req, res, next) => {
         next();
     } else {
         getBookWithAuthors(bookID).then((result) => {
-                res.render('pages/book', {
-                    book: result[0][0],
-                    authors: result[1]
-                });
+                if (result[0][0] === undefined) {
+                    next();
+                } else {
+                    res.render('pages/book', {
+                        book: result[0][0],
+                        authors: result[1]
+                    });
+                }
+
             })
             .catch((err) => {
                 next(knexError(err));
@@ -157,8 +162,8 @@ router.delete('/books/:id', (req, res, next) => {
         next();
     } else {
         //book must be deleted from join table 'books_authors' before it can be removed from 'books'
-        deleteBookFromJoinTable(bookID).then( () => {
-            knex('books').where('id', bookID).del().then(()=> {
+        deleteBookFromJoinTable(bookID).then(() => {
+            knex('books').where('id', bookID).del().then(() => {
                 res.sendStatus(200);
             }).catch((err) => {
                 next(knexError(err));
