@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> <%=author.first_name%> <%=author.last_name%> -- Galvanize Reads</title>
+    </head>
+    <body>
+
+        <h1><%=author.first_name%> <%=author.last_name%></h1>
+        <h2><%=author.bio%></h2>
+        <img src="<%=author.portrait_url%>"/>
+        <% if(books !== undefined) { %>
+            <% books.forEach((book) => { %>
+                <h2><%=book.title%></h2>
+            <%})%>
+        <%}%>
+
+
+    </body>
+</html>

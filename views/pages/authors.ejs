@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Author Listing -- Galvanize Reads</title>
+    </head>
+    <body>
+        <% data.forEach( (author) => { %>
+            <h1><%=author.first_name%> <%=author.last_name%></h1>
+            <h2><%=author.bio%></h2>
+            <img src="<%=author.portrait_url%>"/>
+        <% }) %>
+    </body>
+</html>

@@ -7,7 +7,7 @@ const path = require('path');
 
 //Routes setup
 const booksRouter = require('./routes/books');
-// const authorsRouter = require('./routes/authors');
+const authorsRouter = require('./routes/authors');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -23,7 +23,7 @@ app.disable('x-powered-by');
 
 //Use routes
 app.use(booksRouter);
-// app.use(authorsRouter);
+app.use(authorsRouter);
 
 //Error handling for 404
 app.use((_req, res, next) => {
