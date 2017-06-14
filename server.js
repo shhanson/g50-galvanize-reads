@@ -25,6 +25,10 @@ app.disable('x-powered-by');
 app.use(booksRouter);
 app.use(authorsRouter);
 
+app.get('/', (req, res, next) => {
+    res.render('pages/index');
+});
+
 //Error handling for 404
 app.use((_req, res, next) => {
     var err = new Error('Not Found');
