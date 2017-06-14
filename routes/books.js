@@ -162,12 +162,17 @@ router.delete('/books/:id', (req, res, next) => {
         next();
     } else {
         //book must be deleted from join table 'books_authors' before it can be removed from 'books'
-        deleteBookFromJoinTable(bookID).then(() => {
-            knex('books').where('id', bookID).del().then(() => {
-                res.sendStatus(200);
-            }).catch((err) => {
-                next(knexError(err));
-            })
+        deleteBookFromJoinTable(bookID).then((result) => {
+            if (result === 0) {
+                next();
+            } else {
+                knex('books').where('id', bookID).del().then(() => {
+                    res.sendStatus(200);
+                }).catch((err) => {
+                    next(knexError(err));
+                });
+            }
+
         }).catch((err) => {
             next(knexError(err));
         })
