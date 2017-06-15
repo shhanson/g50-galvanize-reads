@@ -10,8 +10,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+const methodOverride = require('method-override');
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
+
 
 function isValidID(id) {
     return (id >= 1 && !Number.isNaN(id));
@@ -197,18 +200,43 @@ router.get('/books/edit/:id', (req, res, next) => {
     if (!isValidID(bookID)) {
         next();
     } else {
-        knex('books').where('id', bookID).then((result) => {
-            if(result[0] === undefined){
-                next();
-            } else {
-                res.render('pages/editBook', {
-                    data: result[0]
-                });
-            }
+        // knex('books').where('id', bookID).then((result) => {
+        //     if(result[0] === undefined){
+        //         next();
+        //     } else {
+        //         res.render('pages/editBook', {
+        //             book: result[0]
+        //         });
+        //     }
 
-        }).catch((err) => {
-            next(knexError(err));
-        });
+        getBookWithAuthors(bookID).then((result) => {
+                if (result[0][0] === undefined) {
+                    next();
+                } else {
+
+                    knex('authors').then((authors) => {
+                        res.render('pages/editBook', {
+                            book: result[0][0],
+                            authors: result[1],
+                            allAuthors: authors
+                        });
+
+                    }).catch((err) => {
+                        next(knexError(err));
+                    });
+
+
+
+                }
+
+            })
+            .catch((err) => {
+                next(knexError(err));
+            });
+
+
+
+
     }
 });
 

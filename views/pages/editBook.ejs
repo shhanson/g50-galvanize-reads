@@ -14,10 +14,77 @@
     </head>
     <body>
         <% include ../partials/navbar %>
-        <%= data.title %>
+
+        <div class='container'>
+            <h3>Edit Book</h3>
+            <div class="row">
+
+                <div class="col s12 m6">
+
+                    <form method="put" action="/books">
+                        <div class="row">
+                            <div class="input-field col s8">
+                                <input id="title" name="title" type="text" value="<%=book.title%>">
+                                <label for="title">Title</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s8">
+                                <input id="genre" name="genre" type="text" value="<%=book.genre%>">
+                                <label for="genre">Genre</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="description" name="description" class="materialize-textarea"><%=book.description%></textarea>
+                                <label for="description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="cover_url" name="cover_url" type="text" value="<%=book.cover_url%>">
+                                <label for="cover_url">Cover URL</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s8">
+                                <select multiple>
+                                    <option value="" disabled selected>Choose author(s)</option>
+                                    <% allAuthors.forEach((author) => { %>
+
+                                        <option value="<%=author.id%>"><%=author.first_name%> <%=author.last_name%></option>
+                                    <%});%>
+
+                                </select>
+                                <label>Author</label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <button class="btn waves-effect waves-light orange" type="submit" name="action" id="bookEditSubmit">Submit</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="col s12 m6">
+                    <img src="<%=book.cover_url%>" alt="<%=book.title%>">
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
 
         <% include ../partials/footer %>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="/js/materialize.min.js"></script>
+        <script type="text/javascript" src="/js/books.js"></script>
     </body>
 </html>

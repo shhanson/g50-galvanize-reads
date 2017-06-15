@@ -29,11 +29,11 @@
 
                 <div class="row">
 
-                    <div class="col s12 m6">
+                    <div class="col s12 m12 l6 center-align">
                         <img src="<%=book.cover_url%>">
                     </div>
 
-                    <div class="col s12 m6">
+                    <div class="col s12 m12 l6">
 
                         <% if(authors !== undefined) { %>
                             <h5>Written by:
@@ -45,6 +45,9 @@
 
                         <h6><strong>Genre</strong>: <%= book.genre %></h6>
                         <h6><strong>Description</strong>: <%= book.description %></h6>
+
+                        <a class="waves-effect waves-light btn orange" id="editBook"><i class="material-icons left">mode_edit</i>Edit Book</a>
+                        <a class="waves-effect waves-light btn red" id="deleteBook"><i class="material-icons left">delete</i>Delete Book</a>
 
                     </div>
 
