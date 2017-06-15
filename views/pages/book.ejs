@@ -18,16 +18,43 @@
 
     <% include ../partials/navbar %>
 
-    <h1><%= book.title %></h1>
-    <h3><%= book.genre %></h3>
-    <h3><%= book.description %></h3>
-    <img src="<%=book.cover_url%>">
-    <% if(authors !== undefined) { %>
-        <%for(let i = 0; i < authors.length; i++){ %>
-            <h1><%= authors[i].last_name %></h1>
-        <%} %>
-    <% } %>
+    <div class="container">
+        <div class="row">
 
+                <div class="col s12 center-align">
+                    <h3><%= book.title %></h3>
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col s12 m6">
+                        <img src="<%=book.cover_url%>">
+                    </div>
+
+                    <div class="col s12 m6">
+
+                        <% if(authors !== undefined) { %>
+                            <h5>Written by:
+                            <%for(let i = 0; i < authors.length; i++){ %>
+                                <a href="/authors/<%=authors[i].id%>" alt="<%=authors[i].last_name%>"><%= authors[i].first_name%> <%=authors[i].last_name %></a><%if(i !== authors.length-1){%>,<%}%>
+                            <%} %>
+                            </h5>
+                        <% } %>
+
+                        <h6><strong>Genre</strong>: <%= book.genre %></h6>
+                        <h6><strong>Description</strong>: <%= book.description %></h6>
+
+                    </div>
+
+
+
+            </div>
+
+
+        </div>
+    </div>
     <% include ../partials/footer %>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
