@@ -16,6 +16,8 @@
 
 <body>
 
+    <% include ../partials/navbar %>
+
     <h1><%= book.title %></h1>
     <h3><%= book.genre %></h3>
     <h3><%= book.description %></h3>
@@ -26,7 +28,7 @@
         <%} %>
     <% } %>
 
-
+    <% include ../partials/footer %>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>

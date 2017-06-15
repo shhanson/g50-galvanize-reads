@@ -11,6 +11,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 function isValidID(id) {
     return (id >= 1 && !Number.isNaN(id));
@@ -176,6 +177,38 @@ router.delete('/books/:id', (req, res, next) => {
         }).catch((err) => {
             next(knexError(err));
         })
+    }
+});
+
+//GET method to render the addBook page. Sends all author names to populate form.
+router.get('/books/add', (req, res, next) => {
+    knex.select('first_name', 'last_name').from('authors').then((result) => {
+        res.render('pages/addBook', {authors: result});
+
+    }).catch((err) => {
+        next(knexError(err));
+    });
+});
+
+//GET method to render the editBook page.
+//Sends current book data to populate fields.
+router.get('/books/edit/:id', (req, res, next) => {
+    let bookID = Number.parseInt(req.params.id);
+    if (!isValidID(bookID)) {
+        next();
+    } else {
+        knex('books').where('id', bookID).then((result) => {
+            if(result[0] === undefined){
+                next();
+            } else {
+                res.render('pages/editBook', {
+                    data: result[0]
+                });
+            }
+
+        }).catch((err) => {
+            next(knexError(err));
+        });
     }
 });
 

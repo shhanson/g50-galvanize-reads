@@ -15,21 +15,9 @@
 </head>
 
 <body>
-    <nav class="nav-extended">
-    <div class="nav-wrapper grey darken-1">
-      <%# <a href="#!" class="brand-logo">Galvanize Reads</a>%>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/authors">Authors</a></li>
-        <li><a href="/books">Books</a></li>
-      </ul>
-    </div>
-    <div class="nav-content grey">
-      <span class="nav-title">Galvanize Reads</span>
-      <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
-        <i class="material-icons">add</i>
-      </a>
-    </div>
-  </nav>
+
+    <% include ../partials/navbar %>
+
     <div class="container">
         <div class="row center-align">
             <div class="col s6">
@@ -42,26 +30,7 @@
 
     </div>
 
-    <footer class="page-footer grey darken-1">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Galvanize Reads</h5>
-
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="/authors">Authors</a></li>
-                  <li><a class="grey-text text-lighten-3" href="/books">Books</a></li>
-
-                </ul>
-              </div>
-            </div>
-          </div>
-        </footer>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <% include ../partials/footer %>
 </body>
 
 </html>

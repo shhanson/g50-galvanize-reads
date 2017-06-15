@@ -11,6 +11,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 function isValidID(id) {
     return (id >= 1 && !Number.isNaN(id));
@@ -49,6 +50,31 @@ function knexError(err) {
 function deleteAuthorFromJoinTable(authorID){
     return knex('books_authors').where('author_id', authorID).del();
 }
+
+//GET method to render the addAuthor page (form)
+router.get('/authors/add', (req, res) => {
+    res.render('pages/addAuthor');
+});
+
+//GET method to render the editAuthor page
+//Sends current author data to populate fields
+router.get('/authors/edit/:id', (req, res, next) =>{
+    let authorID = Number.parseInt(req.params.id);
+    if(!isValidID(authorID)){
+        next();
+    } else{
+        knex('authors').where('id', authorID).then((result) => {
+            if(result[0] === undefined){
+                next();
+            } else {
+                res.render('pages/editAuthor', {data: result[0]});
+            }
+
+        }).catch((err) => {
+            next(knexError(err));
+        });
+    }
+});
 
 //GET all authors
 router.get('/authors', (req, res, next) => {

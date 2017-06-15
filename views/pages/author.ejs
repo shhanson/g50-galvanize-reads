@@ -16,6 +16,8 @@
 
 <body>
 
+    <% include ../partials/navbar %>
+
     <h1><%=author.first_name%> <%=author.last_name%></h1>
     <h2><%=author.bio%></h2>
     <img src="<%=author.portrait_url%>"/>
@@ -26,6 +28,7 @@
     <%}%>
 
 
+    <% include ../partials/footer %>
             <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
