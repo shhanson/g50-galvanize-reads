@@ -17,16 +17,36 @@
 <body>
 
     <% include ../partials/navbar %>
-    <% if(data === undefined){ %>
-        <h2>No authors yet!</h2>
+    <div class="container">
+        <div class="row center-align">
 
-    <%} else { %>
-        <% data.forEach( (author) => { %>
-            <h1><%=author.first_name%> <%=author.last_name%></h1>
-            <h2><%=author.bio%></h2>
-            <img src="<%=author.portrait_url%>" />
-        <% }) %>
-    <%}%>
+            <% if(data === undefined){ %>
+                <h2>No authors yet!</h2>
+            <%} else { %>
+
+                <% data.forEach((author) => { %>
+
+
+                    <div class="card small-img col s12 m3 l2">
+                        <div class="card-image">
+                            <a href="/authors/<%=author.id%>" alt="<%=author.last_name%>"><img src="<%=author.portrait_url%>"></a>
+
+                        </div>
+                        <div class="card-content">
+                            <%=author.first_name%> <%=author.last_name%>
+                        </div>
+
+                    </div>
+
+
+
+
+                <%}); %>
+            <%} %>
+
+
+        </div>
+    </div>
 
 
     <% include ../partials/footer %>
