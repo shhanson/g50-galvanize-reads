@@ -15,7 +15,7 @@ const methodOverride = require('method-override');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-
+//Helper functions
 function isValidID(id) {
     return (id >= 1 && !Number.isNaN(id));
 }
@@ -86,7 +86,6 @@ router.get('/books/:id', (req, res, next) => {
                         authors: result[1]
                     });
                 }
-
             })
             .catch((err) => {
                 next(knexError(err));
@@ -94,24 +93,73 @@ router.get('/books/:id', (req, res, next) => {
     } //END ELSE
 }); //END GET :id
 
+//GET method to render the addBook page. Sends all author names to populate form.
+router.get('/books/add', (req, res, next) => {
+    knex.select('id', 'first_name', 'last_name').from('authors').then((result) => {
+        res.render('pages/addBook', {authors: result});
+    }).catch((err) => {
+        next(knexError(err));
+    });
+});
+
+//GET method to render the editBook page.
+//Sends current book data to populate fields.
+router.get('/books/edit/:id', (req, res, next) => {
+    let bookID = Number.parseInt(req.params.id);
+    if (!isValidID(bookID)) {
+        next();
+    } else {
+        getBookWithAuthors(bookID).then((result) => {
+                if (result[0][0] === undefined) {
+                    next();
+                } else {
+
+                    knex('authors').then((authors) => {
+                        res.render('pages/editBook', {
+                            book: result[0][0],
+                            authors: result[1],
+                            allAuthors: authors
+                        });
+                    }).catch((err) => {
+                        next(knexError(err));
+                    });
+                }
+            })
+            .catch((err) => {
+                next(knexError(err));
+            });
+    }
+});
+
 //POST (add) a new book
 router.post('/books', (req, res, next) => {
-
     knex('books').returning('id').insert({
         title: req.body.title,
         genre: req.body.genre,
         description: req.body.description,
         cover_url: req.body.cover_url
     }).then((idArray) => {
-        getBook(idArray[0]).then((result) => {
-            res.render('pages/book', {
-                book: result[0],
-                authors: undefined
-            });
+        getBook(idArray[0]).then(() => {
+            // res.render('pages/book', {
+            //     book: result[0],
+            //     authors: undefined
+            //});
+            res.send(JSON.stringify(idArray[0]));
         }).catch((err) => {
             next(knexError(err));
         });
+    }).catch((err) => {
+        next(knexError(err));
+    });
+});
 
+//POST entry to the books_authors table whenever a new book is added
+router.post('/booksauthors', (req, res, next) => {
+    knex('books_authors').insert({
+        book_id: req.body.book_id,
+        author_id: req.body.author_id
+    }).then(()=>{
+        res.sendStatus(200);
     }).catch((err) => {
         next(knexError(err));
     });
@@ -146,17 +194,13 @@ router.put('/books/:id', (req, res, next) => {
                     .catch((err) => {
                         next(knexError(err));
                     });
-
             }).catch((err) => {
                 next(knexError(err));
             });
-
         }).catch((err) => {
             next(knexError(err));
         });
-
     } //END ELSE
-
 }); //END PUT
 
 //DELETE a book with the specified id
@@ -176,67 +220,9 @@ router.delete('/books/:id', (req, res, next) => {
                     next(knexError(err));
                 });
             }
-
         }).catch((err) => {
             next(knexError(err));
         })
-    }
-});
-
-//GET method to render the addBook page. Sends all author names to populate form.
-router.get('/books/add', (req, res, next) => {
-    knex.select('first_name', 'last_name').from('authors').then((result) => {
-        res.render('pages/addBook', {authors: result});
-
-    }).catch((err) => {
-        next(knexError(err));
-    });
-});
-
-//GET method to render the editBook page.
-//Sends current book data to populate fields.
-router.get('/books/edit/:id', (req, res, next) => {
-    let bookID = Number.parseInt(req.params.id);
-    if (!isValidID(bookID)) {
-        next();
-    } else {
-        // knex('books').where('id', bookID).then((result) => {
-        //     if(result[0] === undefined){
-        //         next();
-        //     } else {
-        //         res.render('pages/editBook', {
-        //             book: result[0]
-        //         });
-        //     }
-
-        getBookWithAuthors(bookID).then((result) => {
-                if (result[0][0] === undefined) {
-                    next();
-                } else {
-
-                    knex('authors').then((authors) => {
-                        res.render('pages/editBook', {
-                            book: result[0][0],
-                            authors: result[1],
-                            allAuthors: authors
-                        });
-
-                    }).catch((err) => {
-                        next(knexError(err));
-                    });
-
-
-
-                }
-
-            })
-            .catch((err) => {
-                next(knexError(err));
-            });
-
-
-
-
     }
 });
 

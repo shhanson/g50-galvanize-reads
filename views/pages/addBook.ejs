@@ -19,7 +19,7 @@
     <div class='container'>
         <h3>Add a Book</h3>
         <div class="row">
-            <form class="col s12" action="/books" method="post">
+            <form class="col s12" id="addBookForm">
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="title" name="title" type="text">
@@ -47,10 +47,13 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <select multiple>
-                            <option value="" disabled selected>Choose author(s)</option>
+                        <select id="authorsMenu" multiple>
+                            <option value="" disabled>Choose author(s)</option>
                             <<% authors.forEach((author) => { %>
-                                <option value="<%=author.id%>"><%=author.first_name%> <%=author.last_name%></option>
+
+                                <option id="<%=author.id%>"><%=author.first_name%> <%=author.last_name%></option>
+
+
                             <%});%>
 
                         </select>
@@ -59,7 +62,7 @@
 
                 </div>
                 <div class="row">
-                    <button class="btn waves-effect waves-light orange" type="submit" name="action" id="addBook">Submit</button>
+                    <button class="btn waves-effect waves-light orange" type="submit" id="addBookBtn">Submit</button>
 
                 </div>
 
