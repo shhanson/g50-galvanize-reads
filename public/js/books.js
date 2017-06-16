@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+    function getIDFromURL(){
+        return window.location.pathname.match(/\d+$/)[0];
+    }
+
     //Initialize multiselect author menu
     $('select').material_select();
     // console.log("READY");
@@ -48,8 +53,52 @@ $(document).ready(function() {
     }); //END ADDBOOK FORM SUBMISSION
 
 
+    $('#editBookForm').submit((event) => {
+        event.preventDefault();
 
+        let bookID = getIDFromURL();
 
+        let editedBook = {
+            title: $('#title').val(),
+            genre: $('#genre').val(),
+            description: $('#description').val(),
+            cover_url: $('#cover_url').val()
+        };
 
+        $.ajax({
+            type: 'PUT',
+            url: `/books/${bookID}`,
+            data: editedBook,
+            success: () => {
+                window.location.replace(`/books/${bookID}`);
+            }
+        }).error( ()=>{
+            console.error("BOOK PUT ERROR");
+        });
+
+    }); //END EDITBOOK FORM SUBMISSION
+
+    $('#editBookBtn').click(()=>{
+        let bookID = getIDFromURL();
+        window.location.replace(`/books/edit/${bookID}`);
+
+    });
+
+    $('#deleteBookBtn').click(()=> {
+        let response = confirm("Are you sure you want to delete this book?");
+        if(response){
+            let bookID = getIDFromURL();
+
+            $.ajax({
+                type: 'DELETE',
+                url: `/books/${bookID}`,
+                success: () =>{
+                    window.location.replace('/books');
+                }
+            }).error(()=>{
+                console.error("DELETE BOOK ERROR");
+            });
+        }
+    }); //END DELETEBOOK
 
 }); //END
