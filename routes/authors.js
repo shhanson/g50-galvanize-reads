@@ -144,10 +144,10 @@ router.put('/authors/:id', (req, res, next) => {
             //If only some of the author info was provided for the edit, retain the previous //information
             let authorOrig = result[0];
             let updatedAuthor = {
-                first_name: req.body.first_name || authorOrig.first_name,
-                last_name: req.body.last_name || authorOrig.last_name,
-                bio: req.body.bio || authorOrig.bio,
-                portrait_url: req.body.portrait_url || authorOrig.portrait_url
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                bio: req.body.bio,
+                portrait_url: req.body.portrait_url
             };
             knex('authors').returning('id').where('id', authorID).update(updatedAuthor).then((idArray) => {
 
@@ -180,16 +180,16 @@ router.delete('/authors/:id', (req, res, next) => {
     } else {
         //Author must be deleted from the books_authors table before deleting from authors table
         deleteAuthorFromJoinTable(authorID).then( (result) => {
-            if(result === 0){
-                next();
-            } else {
+            // if(result === 0){
+            //     next();
+            // } else {
                 knex('authors').where('id', authorID).del().then(() => {
                     res.sendStatus(200);
 
                 }).catch((err) => {
                     next(knexError(err));
                 });
-            }
+            //}
 
         }).catch((err) => {
             next(knexError(err));

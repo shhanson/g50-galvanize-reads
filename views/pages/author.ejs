@@ -28,7 +28,7 @@
                 <div class="row">
 
                     <div class="col s12 m6 center-align">
-                        <img src="<%=author.portrait_url%>">
+                        <img src="<%=author.portrait_url%>" class="responsive-img">
                     </div>
 
                     <div class="col s12 m6">
@@ -36,7 +36,8 @@
                         <h6><strong>Biography</strong>: <%= author.bio %></h6>
                         <h6><strong>Bibliography</strong>:
                             <ol>
-                            <%if(books !== undefined) { %>
+
+                            <%if(books !== undefined && books.length > 0) { %>
                                 <%books.forEach((book) => {%>
                                     <li><a href="/books/<%=book.id%>" alt="<%=book.title%>"><%=book.title%></a></li>
                                 <%});%>
@@ -46,8 +47,8 @@
 
                         </h6>
 
-                        <a class="waves-effect waves-light btn orange" id="editAuthor"><i class="material-icons left">mode_edit</i>Edit Author</a>
-                        <a class="waves-effect waves-light btn red" id="deleteAuthor"><i class="material-icons left">delete</i>Delete Author</a>
+                        <a class="waves-effect waves-light btn orange" id="editAuthorBtn"><i class="material-icons left">mode_edit</i>Edit Author</a>
+                        <a class="waves-effect waves-light btn red" id="deleteAuthorBtn"><i class="material-icons left">delete</i>Delete Author</a>
 
 
                     </div>
@@ -69,6 +70,7 @@
             <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/authors.js"></script>
 </body>
 
 </html>

@@ -22,7 +22,7 @@
 
             <div class="col s12 m6">
 
-                <form action="/authors" method="put">
+                <form id="editAuthorForm">
                     <div class="row">
                         <div class="input-field col s8">
                             <input id="first_name" name="first_name" type="text" value="<%=data.first_name%>">
@@ -71,5 +71,6 @@
         <% include ../partials/footer %>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="/js/materialize.min.js"></script>
+        <script type="text/javascript" src="/js/authors.js"></script>
     </body>
 </html>

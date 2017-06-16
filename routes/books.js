@@ -10,8 +10,6 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
-const methodOverride = require('method-override');
-
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -115,10 +113,20 @@ router.get('/books/edit/:id', (req, res, next) => {
                 } else {
 
                     knex('authors').then((authors) => {
+
+                        let allAuthors = authors;
+                        let actualAuthors = result[1];
+
+                        for(let i = 0; i < allAuthors.length; i++){
+                            for(let j = 0; j < actualAuthors.length; j++){
+                                if(allAuthors[i].id === actualAuthors[j].id){
+                                    allAuthors[i].checked = true;
+                                }
+                            }
+                        }
                         res.render('pages/editBook', {
                             book: result[0][0],
-                            authors: result[1],
-                            allAuthors: authors
+                            authors: allAuthors
                         });
                     }).catch((err) => {
                         next(knexError(err));
@@ -165,6 +173,19 @@ router.post('/booksauthors', (req, res, next) => {
     });
 });
 
+router.delete('/booksauthors/:id', (req, res, next) => {
+    let bookID = Number.parseInt(req.params.id);
+    if(!isValidID(bookID)){
+        next();
+    } else {
+        knex('books_authors').where('book_id', bookID).del().then(()=> {
+            res.sendStatus(200);
+        }).catch((err)=> {
+            next(knexError(err));
+        });
+    }
+
+});
 //PUT (edit) a book with the specified id
 router.put('/books/:id', (req, res, next) => {
 
@@ -177,11 +198,12 @@ router.put('/books/:id', (req, res, next) => {
             let bookOrig = result[0];
             //If user did not provide info for a particular field, retain the former field info
             let bookUpdated = {
-                title: req.body.title || bookOrig.title,
-                genre: req.body.genre || bookOrig.genre,
-                description: req.body.description || bookOrig.description,
-                cover_url: req.body.cover_url || bookOrig.cover_url
+                title: req.body.title,
+                genre: req.body.genre,
+                description: req.body.description,
+                cover_url: req.body.cover_url,
             };
+
             //Query to replace the book with the given ID with the updated book
             knex('books').returning('id').where('id', bookID).update(bookUpdated).then((idArray) => {
                 //Query to fetch the book with its authors and render
@@ -211,15 +233,15 @@ router.delete('/books/:id', (req, res, next) => {
     } else {
         //book must be deleted from join table 'books_authors' before it can be removed from 'books'
         deleteBookFromJoinTable(bookID).then((result) => {
-            if (result === 0) {
-                next();
-            } else {
+            // if (result === 0) {
+            //     next();
+            // } else {
                 knex('books').where('id', bookID).del().then(() => {
                     res.sendStatus(200);
                 }).catch((err) => {
                     next(knexError(err));
                 });
-            }
+            //}
         }).catch((err) => {
             next(knexError(err));
         })

@@ -30,12 +30,12 @@
                 <div class="row">
 
                     <div class="col s12 m12 l6 center-align">
-                        <img src="<%=book.cover_url%>">
+                        <img src="<%=book.cover_url%>" class="responsive-img">
                     </div>
 
                     <div class="col s12 m12 l6">
 
-                        <% if(authors !== undefined) { %>
+                        <% if(authors !== undefined && authors.length > 0) { %>
                             <h5>Written by:
                             <%for(let i = 0; i < authors.length; i++){ %>
                                 <a href="/authors/<%=authors[i].id%>" alt="<%=authors[i].last_name%>"><%= authors[i].first_name%> <%=authors[i].last_name %></a><%if(i !== authors.length-1){%>,<%}%>
@@ -46,8 +46,8 @@
                         <h6><strong>Genre</strong>: <%= book.genre %></h6>
                         <h6><strong>Description</strong>: <%= book.description %></h6>
 
-                        <a class="waves-effect waves-light btn orange" id="editBook"><i class="material-icons left">mode_edit</i>Edit Book</a>
-                        <a class="waves-effect waves-light btn red" id="deleteBook"><i class="material-icons left">delete</i>Delete Book</a>
+                        <a class="waves-effect waves-light btn orange" id="editBookBtn"><i class="material-icons left">mode_edit</i>Edit Book</a>
+                        <a class="waves-effect waves-light btn red" id="deleteBookBtn"><i class="material-icons left">delete</i>Delete Book</a>
 
                     </div>
 
@@ -62,6 +62,7 @@
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/books.js"></script>
 
 </body>
 

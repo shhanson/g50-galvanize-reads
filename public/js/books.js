@@ -41,10 +41,14 @@ $(document).ready(function() {
                     if(i === selectedAuthors.length-1){
                         window.location.replace(`/books/${newBookID}`);
                     }
+                }).error(()=>{
+                    console.error("BOOKSAUTHORS POST ERROR");
                 });//END BOOKSAUTHORSPOST
 
             }//END AUTHOR LOOP
 
+        }).error(()=> {
+            console.error("BOOKS POST ERROR");
         }); //END BOOKS POST
 
 
@@ -70,7 +74,35 @@ $(document).ready(function() {
             url: `/books/${bookID}`,
             data: editedBook,
             success: () => {
-                window.location.replace(`/books/${bookID}`);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: `/booksauthors/${bookID}`,
+                    success: () => {
+
+                        let selectedAuthors = $('#authorsMenu').children(":selected");
+                        for(let i = 0; i < selectedAuthors.length; i++){
+                            let newEntry = {
+                                book_id: bookID,
+                                author_id: selectedAuthors[i].id
+                            };
+
+
+                            $.post('/booksauthors', newEntry).done(() =>{
+                                if(i === selectedAuthors.length-1){
+                                    window.location.replace(`/books/${bookID}`);
+                                }
+
+                            }).error( ()=> {
+                                console.error("BOOKSAUTHORS POST ERROR");
+                            });
+                        }
+
+                    }
+                }).error(()=>{
+                    console.error("BOOKSAUTHORS DELETE ERROR");
+
+                });
             }
         }).error( ()=>{
             console.error("BOOK PUT ERROR");
