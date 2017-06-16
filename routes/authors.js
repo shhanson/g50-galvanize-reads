@@ -121,11 +121,12 @@ router.post('/authors', (req, res, next) => {
         portrait_url: req.body.portrait_url
     }).then((idArray) => {
         //Render page with new author
-        getAuthor(idArray[0]).then((result) => {
-            res.render('pages/author', {
-                author: result[0],
-                books: undefined
-            });
+        getAuthor(idArray[0]).then(() => {
+            // res.render('pages/author', {
+            //     author: result[0],
+            //     books: undefined
+            // });
+            res.send(JSON.stringify(idArray[0]));
         }).catch((err) => {
             next(knexError(err));
         });

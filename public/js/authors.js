@@ -4,6 +4,30 @@ $(document).ready(function() {
         return window.location.pathname.match(/\d+$/)[0];
     }
 
+    $('#addAuthorForm').submit((event) => {
+        console.log("WTF");
+
+        event.preventDefault();
+        let newAuthorID;
+
+        let newAuthor = {
+            first_name: $('#first_name').val(),
+            last_name: $('#last_name').val(),
+            bio: $('#bio').val(),
+            portrait_url: $('#portrait_url').val()
+        };
+
+        $.post('/authors', newAuthor).done((id)=> {
+            console.log(id);
+            newAuthorID = id;
+            window.location.replace(`/authors/${newAuthorID}`);
+
+        }).error(()=> {
+            console.error("AUTHOR POST ERROR");
+        });
+
+    }); //END ADD AUTHOR FORM SUBMISSION
+
     $('#editAuthorForm').submit((event) => {
         event.preventDefault();
 
@@ -16,7 +40,6 @@ $(document).ready(function() {
             portrait_url: $('#portrait_url').val()
         };
 
-        console.log(editedAuthor);
 
         $.ajax({
             type: 'PUT',

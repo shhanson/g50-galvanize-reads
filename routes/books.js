@@ -148,10 +148,6 @@ router.post('/books', (req, res, next) => {
         cover_url: req.body.cover_url
     }).then((idArray) => {
         getBook(idArray[0]).then(() => {
-            // res.render('pages/book', {
-            //     book: result[0],
-            //     authors: undefined
-            //});
             res.send(JSON.stringify(idArray[0]));
         }).catch((err) => {
             next(knexError(err));
