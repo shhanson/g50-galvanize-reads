@@ -66,7 +66,7 @@ router.get('/books', (req, res, next) => {
         }) //END THEN
         .catch((err) => {
             next(knexError(err));
-        }) //END CATCH
+        }) //END CATC
 }); //END GET
 
 //GET a book with the specified id

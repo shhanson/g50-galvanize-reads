@@ -18,22 +18,30 @@
 <body>
     <% include ../partials/navbar %>
     <div class="container">
-        <div class="row center-align">
+        <h3>Books</h3>
+        <div class="row">
+
 
             <% if(data === undefined || data.length <1){ %>
                 <h4>No books yet!</h4>
+                <a class="waves-effect waves-light btn-large orange" href="/books/add"><i class="material-icons left">library_add</i>Add a Book</a>
             <%} else { %>
+                <h5> Total books: <%=data.length%> </h5>
                 <% data.forEach((book) => { %>
-                    <a href="/books/<%=book.id%>" alt="<%=book.title%>"><div class="card small-img col s6 m3 l2">
-                        <div class="card-image">
-                            <img src="<%=book.cover_url%>">
+                    <div class="col s12 m8 offset-m2 offset-l3">
+                        <div class="card-panel grey lighten-5 z-depth-1">
+                            <div class="row valign-wrapper">
+                                <div class="col s3">
+                                    <img src="<%=book.cover_url%>" alt="" class="responsive-img">
 
+                                </div>
+                                <div class="col s9">
+                                    <h5><a href="/books/<%=book.id%>"><%=book.title%></a></h5>
+                                    <h6>Genre: <%=book.genre%></h6>
+                                </div>
                             </div>
-                        <div class="card-content">
-                            <%=book.title %>
                         </div>
-
-                    </div></a>
+                    </div>
                 <%}); %>
             <%} %>
 

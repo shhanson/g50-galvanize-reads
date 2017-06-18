@@ -20,14 +20,16 @@
 
     <% include ../partials/navbar %>
         <div class="container">
+            <h3>Authors</h3>
             <div class="row">
 
-                <h3>Authors</h3>
+
 
                 <% if(data === undefined || data.length < 1){ %>
                     <h4>No authors yet!</h4>
+                    <a class="waves-effect waves-light btn-large orange" href="/authors/add"><i class="material-icons left">perm_identity</i>Add an Author</a>
                     <%} else { %>
-
+                        <h5> Total authors: <%=data.length%> </h5>
                         <% for(let i = 0; i < data.length; i++){ %>
                             <div class="col s12 m8 offset-m2 l6 offset-l3">
                                 <a href="/authors/<%=data[i].id%>"><div class="card-panel grey lighten-5 z-depth-1">
