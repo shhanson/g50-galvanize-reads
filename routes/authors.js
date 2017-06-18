@@ -24,7 +24,7 @@ function getAuthor(id) {
 
 function getBooksForAuthor(authorID) {
     //Query that joins the 'books' table with 'books_authors' and returns entries with author_id equal to the authorID provided
-    return knex('books').join('books_authors', 'books.id', 'books_authors.book_id').where('books_authors.author_id', authorID);
+    return knex('books').join('books_authors', 'books.id', 'books_authors.book_id').where('books_authors.author_id', authorID).orderBy('books.title');
 }
 
 function getAuthorWithBooks(authorID) {
@@ -78,7 +78,7 @@ router.get('/authors/edit/:id', (req, res, next) =>{
 
 //GET all authors
 router.get('/authors', (req, res, next) => {
-    knex('authors').then((result) => {
+    knex('authors').orderBy('last_name').then((result) => {
         res.render('pages/authors', {
             data: result
         });

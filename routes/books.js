@@ -28,7 +28,7 @@ function getAuthorsForBook(bookID) {
     //Query that joins the 'authors' table with 'books_authors' and returns entries with book_id equal to the bookID provided
     return knex('authors')
         .join('books_authors', 'authors.id', 'books_authors.author_id')
-        .where('books_authors.book_id', bookID);
+        .where('books_authors.book_id', bookID).orderBy('authors.last_name');
 }
 
 function deleteBookFromJoinTable(bookID) {
@@ -58,7 +58,7 @@ function knexError(err) {
 
 //GET all books
 router.get('/books', (req, res, next) => {
-    knex('books')
+    knex('books').orderBy('title')
         .then((result) => {
             res.render('pages/books', {
                 data: result
