@@ -20,20 +20,20 @@
     <div class="container">
         <div class="row center-align">
 
-            <% if(data === undefined){ %>
-                <h2>No books yet!</h2>
+            <% if(data === undefined || data.length <1){ %>
+                <h4>No books yet!</h4>
             <%} else { %>
                 <% data.forEach((book) => { %>
-                    <div class="card small-img col s6 m3 l2">
+                    <a href="/books/<%=book.id%>" alt="<%=book.title%>"><div class="card small-img col s6 m3 l2">
                         <div class="card-image">
-                            <a href="/books/<%=book.id%>" alt="<%=book.title%>"><img src="<%=book.cover_url%>"></a>
+                            <img src="<%=book.cover_url%>">
 
                             </div>
                         <div class="card-content">
                             <%=book.title %>
                         </div>
 
-                    </div>
+                    </div></a>
                 <%}); %>
             <%} %>
 

@@ -1,5 +1,13 @@
+a {
+    color: darkorange;
+}
 
-.small-img{
-    width: 350px;
-    height: 350px;
+.banner {
+    background-image: url('/img/pexels-photo-106116.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 625px;
+    margin-bottom: 0px;
+
 }

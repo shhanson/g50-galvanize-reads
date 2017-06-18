@@ -10,6 +10,8 @@
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
 
+    <link type="text/css" rel="stylesheet" href="/css/custom.css">
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -19,35 +21,35 @@
     <div class='container'>
         <h3>Add a Book</h3>
         <div class="row">
-            <form class="col s12" id="addBookForm">
+            <form class="col s12" id="addBookForm" name="addBookForm">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="title" name="title" type="text">
+                        <input id="title" name="title" type="text" required>
                         <label for="title">Title</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="genre" name="genre" type="text">
+                        <input id="genre" name="genre" type="text" required>
                         <label for="genre">Genre</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s8">
-                        <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                        <textarea id="description" name="description" class="materialize-textarea" required></textarea>
                         <label for="description">Description</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s8">
-                        <input id="cover_url" name="cover_url" type="text">
+                        <input id="cover_url" name="cover_url" type="text" required>
                         <label for="cover_url">Cover URL</label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <select id="authorsMenu" multiple>
+                        <select id="authorsMenu" multiple required>
                             <option value="" disabled>Choose author(s)</option>
                             <<% authors.forEach((author) => { %>
 
