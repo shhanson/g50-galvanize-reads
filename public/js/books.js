@@ -90,7 +90,7 @@ $(document).ready(function() {
 
                             $.post('/booksauthors', newEntry).done(() =>{
                                 if(i === selectedAuthors.length-1){
-                                    window.location.replace(`/books/${bookID}`);
+                                    window.location.replace(`/book/${bookID}`);
                                 }
 
                             }).error( ()=> {
