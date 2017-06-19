@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     let options = {
-        valueNames: ['genre']
+        valueNames: ['id', 'genre']
     };
 
     let booksList = new List('booksList', options);
