@@ -1,7 +1,7 @@
 'use strict';
 
 //const bodyParser = require('body-parser');
-//const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 
@@ -12,7 +12,7 @@ const authorsRouter = require('./routes/authors');
 const app = express();
 const port = process.env.PORT || 8000;
 
-//dotenv.load();
+dotenv.load();
 
 //Setup for templating
 app.set('views', path.join(__dirname, 'views'));
