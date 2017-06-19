@@ -35,7 +35,7 @@
                             <div class="input-field">
                                 <input id="authorSearch" type="search" required>
                                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                                <i class="material-icons">close</i>
+                                <i class="material-icons" id="clearAuthorSearch">close</i>
                             </div>
                         </form>
                         </div>
@@ -45,7 +45,7 @@
                                     <div class="row valign-wrapper">
                                         <div class="col s3">
                                             <img src="<%=data[i].portrait_url%>" alt="" class="circle responsive-img">
-                                        
+
                                         </div>
                                         <div class="col s7">
                                             <h5><%=data[i].first_name%> <%=data[i].last_name%></h5>
@@ -67,6 +67,7 @@
             <!--Import jQuery before materialize.js-->
             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
             <script type="text/javascript" src="/js/materialize.min.js"></script>
+            <script type="text/javascript" src="/js/authorList.js"></script>
 </body>
 
 </html>

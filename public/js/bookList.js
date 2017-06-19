@@ -12,8 +12,25 @@ $(document).ready(function() {
 
     uniqueGenres.forEach((genre)=>{
         let $li = $('<li></li>');
-        $li.text(genre);
+        let $a = $('<a href="#"></a>');
+        $li.append($a);
+        $a.text(genre);
+
+        $li.click(()=>{
+
+        });
         $('#genreList').append($li);
+    });
+
+
+    $('#bookSearch').change(()=> {
+        console.log($('#bookSearch').val())
+
+
+    });
+
+    $('#clearBookSearch').click(()=>{
+        $('#bookSearch').val("");
     });
 
 
