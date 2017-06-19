@@ -27,22 +27,39 @@
                 <a class="waves-effect waves-light btn-large orange" href="/books/add"><i class="material-icons left">library_add</i>Add a Book</a>
             <%} else { %>
                 <h5> Total books: <%=data.length%> </h5>
-                <% data.forEach((book) => { %>
-                    <div class="col s12 m8 offset-m2 offset-l3">
-                        <div class="card-panel grey lighten-5 z-depth-1">
-                            <div class="row valign-wrapper">
-                                <div class="col s3">
-                                    <img src="<%=book.cover_url%>" alt="" class="responsive-img">
+                <h6> Filter by genre: </h6>
+                <ul id="genreList"></ul>
 
-                                </div>
-                                <div class="col s9">
-                                    <h5><a href="/books/<%=book.id%>"><%=book.title%></a></h5>
-                                    <h6>Genre: <%=book.genre%></h6>
+                <div class="container">
+                <form class="col s12">
+                    <div class="input-field">
+                        <input id="bookSearch" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+                </div>
+
+                <div id="booksList">
+                    <ul class="list">
+                        <% data.forEach((book) => { %>
+                        <li><div class="col s12 m8 offset-m2 l6 offset-l3">
+                            <div class="card-panel grey lighten-5 z-depth-1">
+                                <div class="row valign-wrapper">
+                                    <div class="col s3">
+                                        <img src="<%=book.cover_url%>" alt="" class="responsive-img">
+
+                                        </div>
+                                    <div class="col s7">
+                                        <h5><a href="/books/<%=book.id%>"><%=book.title%></a></h5>
+                                        <h6>Genre: <span class='genre'><%=book.genre%></span></h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                <%}); %>
+                        </div></li>
+                        <%}); %>
+                    </ul>
+                </div>
             <%} %>
 
 
@@ -53,6 +70,8 @@
     <!--Import jQuery before materialize.js-->
      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
      <script type="text/javascript" src="/js/materialize.min.js"></script>
+     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+     <script type="text/javascript" src="/js/bookList.js"></script>
 
 
 </body>

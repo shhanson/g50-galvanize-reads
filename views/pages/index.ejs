@@ -19,15 +19,28 @@
 
     <% include ../partials/navbar %>
 
-            <div class="row center-align valign-wrapper banner">
 
-                    <section class="col s12">
-                        <a class="waves-effect waves-light btn-large orange" href="authors"><i class="material-icons left">perm_identity</i>Browse Authors</a>
-                        <a class="waves-effect waves-light btn-large orange" href="books"><i class="material-icons left">library_books</i>Browse Books</a>
-                    </section>
+        <div class="row center-align valign-wrapper banner">
 
+            <div class='container'>
+                <div class="col s12">
+                    <a class="waves-effect waves-light btn-large orange" href="authors"><i class="material-icons left">perm_identity</i>Browse Authors</a>
+                    <a class="waves-effect waves-light btn-large orange" href="books"><i class="material-icons left">library_books</i>Browse Books</a><br>
 
+                    <form>
+                        <div class="input-field">
+                            <input id="allSearch" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+
+
+
+        </div>
 
         <% include ../partials/footer %>
             <!--Import jQuery before materialize.js-->
