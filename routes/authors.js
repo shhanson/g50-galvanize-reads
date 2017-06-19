@@ -52,13 +52,13 @@ function deleteAuthorFromJoinTable(authorID){
 }
 
 //GET method to render the addAuthor page (form)
-router.get('/authors/add', (req, res) => {
+router.get('/author/add', (req, res) => {
     res.render('pages/addAuthor');
 });
 
 //GET method to render the editAuthor page
 //Sends current author data to populate fields
-router.get('/authors/edit/:id', (req, res, next) =>{
+router.get('/author/edit/:id', (req, res, next) =>{
     let authorID = Number.parseInt(req.params.id);
     if(!isValidID(authorID)){
         next();
@@ -89,7 +89,7 @@ router.get('/authors', (req, res, next) => {
 });
 
 //GET an author with the specified ID
-router.get('/authors/:id', (req, res, next) => {
+router.get('/author/:id', (req, res, next) => {
     let authorID = Number.parseInt(req.params.id);
     if (!isValidID(authorID)) {
         next();
@@ -112,7 +112,7 @@ router.get('/authors/:id', (req, res, next) => {
 });
 
 //POST (add) a new author
-router.post('/authors', (req, res, next) => {
+router.post('/author', (req, res, next) => {
 
     knex('authors').returning('id').insert({
         first_name: req.body.first_name,
@@ -132,7 +132,7 @@ router.post('/authors', (req, res, next) => {
 });
 
 //PUT (edit) an author with the specified ID
-router.put('/authors/:id', (req, res, next) => {
+router.put('/author/:id', (req, res, next) => {
     let authorID = Number.parseInt(req.params.id);
     if(!isValidID(authorID)){
         next();
@@ -169,16 +169,14 @@ router.put('/authors/:id', (req, res, next) => {
 });
 
 //DELETE an author with the specified ID
-router.delete('/authors/:id', (req, res, next) => {
+router.delete('/author/:id', (req, res, next) => {
     let authorID = Number.parseInt(req.params.id);
     if(!isValidID(authorID)){
         next();
     } else {
         //Author must be deleted from the books_authors table before deleting from authors table
         deleteAuthorFromJoinTable(authorID).then( (result) => {
-            // if(result === 0){
-            //     next();
-            // } else {
+
                 knex('authors').where('id', authorID).del().then(() => {
                     res.sendStatus(200);
 

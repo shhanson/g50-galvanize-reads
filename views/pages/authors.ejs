@@ -11,7 +11,7 @@
 
                 <% if(data === undefined || data.length < 1){ %>
                     <h4>No authors yet!</h4>
-                    <a class="waves-effect waves-light btn-large orange" href="/authors/add"><i class="material-icons left">perm_identity</i>Add an Author</a>
+                    <a class="waves-effect waves-light btn-large orange" href="/author/add"><i class="material-icons left">perm_identity</i>Add an Author</a>
                     <%} else { %>
                         <h5> Total authors: <%=data.length%> </h5>
                         <div class="container">
@@ -25,7 +25,7 @@
                         </div>
                         <% for(let i = 0; i < data.length; i++){ %>
                             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                                <a href="/authors/<%=data[i].id%>"><div class="card-panel grey lighten-5 z-depth-1">
+                                <a href="/author/<%=data[i].id%>"><div class="card-panel grey lighten-5 z-depth-1">
                                     <div class="row valign-wrapper">
                                         <div class="col s3">
                                             <img src="<%=data[i].portrait_url%>" alt="" class="circle responsive-img">

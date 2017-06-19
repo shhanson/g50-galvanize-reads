@@ -23,7 +23,7 @@ $(document).ready(function() {
             cover_url: $('#cover_url').val()
         };
 
-        $.post('/books', newBook).done((id) => {
+        $.post('/book', newBook).done((id) => {
 
             newBookID = id;
             //Store the array of selected authors from the authors menu
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
                 $.post('/booksauthors', newEntry).done( ()=> {
                     if(i === selectedAuthors.length-1){
-                        window.location.replace(`/books/${newBookID}`);
+                        window.location.replace(`/book/${newBookID}`);
                     }
                 }).error(()=>{
                     console.error("BOOKSAUTHORS POST ERROR");
@@ -71,7 +71,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'PUT',
-            url: `/books/${bookID}`,
+            url: `/book/${bookID}`,
             data: editedBook,
             success: () => {
 
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
     $('#editBookBtn').click(()=>{
         let bookID = getIDFromURL();
-        window.location.replace(`/books/edit/${bookID}`);
+        window.location.replace(`/book/edit/${bookID}`);
 
     });
 
@@ -123,7 +123,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'DELETE',
-                url: `/books/${bookID}`,
+                url: `/book/${bookID}`,
                 success: () =>{
                     window.location.replace('/books');
                 }

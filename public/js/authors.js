@@ -5,7 +5,6 @@ $(document).ready(function() {
     }
 
     $('#addAuthorForm').submit((event) => {
-        console.log("WTF");
 
         event.preventDefault();
         let newAuthorID;
@@ -17,10 +16,10 @@ $(document).ready(function() {
             portrait_url: $('#portrait_url').val()
         };
 
-        $.post('/authors', newAuthor).done((id)=> {
+        $.post('/author', newAuthor).done((id)=> {
             console.log(id);
             newAuthorID = id;
-            window.location.replace(`/authors/${newAuthorID}`);
+            window.location.replace(`/author/${newAuthorID}`);
 
         }).error(()=> {
             console.error("AUTHOR POST ERROR");
@@ -43,10 +42,10 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'PUT',
-            url: `/authors/${authorID}`,
+            url: `/author/${authorID}`,
             data: editedAuthor,
             success: () => {
-                window.location.replace(`/authors/${authorID}`);
+                window.location.replace(`/author/${authorID}`);
             }
         }).error( ()=>{
             console.error("AUTHOR PUT ERROR");
@@ -61,7 +60,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'DELETE',
-                url: `/authors/${authorID}`,
+                url: `/author/${authorID}`,
                 success: () => {
                     window.location.replace('/authors');
                 }
@@ -77,7 +76,7 @@ $(document).ready(function() {
 
     $('#editAuthorBtn').click(() => {
         let authorID = getIDFromURL();
-        window.location.replace(`/authors/edit/${authorID}`);
+        window.location.replace(`/author/edit/${authorID}`);
 
     }); //END EDIT AUTHOR BTN
 

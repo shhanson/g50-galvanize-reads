@@ -4,24 +4,42 @@ $(document).ready(function() {
         valueNames: ['genre']
     };
 
-
     let booksList = new List('booksList', options);
 
-    //let $genreList = $.map($(".genre"), $.text);
+    $('#bookCount').text(`Showing ${booksList.size()} books`);
+
     let uniqueGenres = Array.from( new Set($.map($(".genre"), $.text)) );
 
-    uniqueGenres.forEach((genre)=>{
+    uniqueGenres.forEach(function(genre){
+
         let $li = $('<li></li>');
         let $a = $('<a href="#"></a>');
         $li.append($a);
         $a.text(genre);
 
-        $li.click(()=>{
+        $li.click((event)=>{
+            let clickedGenre = event.target.innerText;
 
+            let filteredList = booksList.filter(function(item){
+                if(item.values().genre === clickedGenre){
+                    return true;
+                } else{
+                    return false;
+                }
+            });
+
+            $('#bookCount').text(`Showing ${filteredList.length} books`);
         });
+
         $('#genreList').append($li);
+
     });
 
+
+    $('#clearFilter').click(()=>{
+        booksList.filter();
+        $('#bookCount').text(`Showing ${booksList.size()} books`);
+    });
 
     $('#bookSearch').change(()=> {
         console.log($('#bookSearch').val())
@@ -31,6 +49,7 @@ $(document).ready(function() {
 
     $('#clearBookSearch').click(()=>{
         $('#bookSearch').val("");
+
     });
 
 

@@ -11,9 +11,12 @@
                 <h4>No books yet!</h4>
                 <a class="waves-effect waves-light btn-large orange" href="/books/add"><i class="material-icons left">library_add</i>Add a Book</a>
             <%} else { %>
-                <h5> Total books: <%=data.length%> </h5>
+
+
+                <div id="booksList">
+                <h5 id="bookCount"> </h5>
                 <h6> Filter by genre: </h6>
-                <ul id="genreList"></ul>
+                <ul id="genreList"><li id="clearFilter"><a href="#">Clear filter</a></li></ul>
 
                 <div class="container">
                 <form class="col s12">
@@ -24,8 +27,6 @@
                     </div>
                 </form>
                 </div>
-
-                <div id="booksList">
                     <ul class="list">
                         <% data.forEach((book) => { %>
                         <li><div class="col s12 m8 offset-m2 l6 offset-l3">

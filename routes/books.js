@@ -70,7 +70,7 @@ router.get('/books', (req, res, next) => {
 }); //END GET
 
 //GET a book with the specified id
-router.get('/books/:id', (req, res, next) => {
+router.get('/book/:id', (req, res, next) => {
     const bookID = Number.parseInt(req.params.id);
     if (!isValidID(bookID)) {
         next();
@@ -92,7 +92,7 @@ router.get('/books/:id', (req, res, next) => {
 }); //END GET :id
 
 //GET method to render the addBook page. Sends all author names to populate form.
-router.get('/books/add', (req, res, next) => {
+router.get('/book/add', (req, res, next) => {
     knex.select('id', 'first_name', 'last_name').from('authors').then((result) => {
         res.render('pages/addBook', {authors: result});
     }).catch((err) => {
@@ -102,7 +102,7 @@ router.get('/books/add', (req, res, next) => {
 
 //GET method to render the editBook page.
 //Sends current book data to populate fields.
-router.get('/books/edit/:id', (req, res, next) => {
+router.get('/book/edit/:id', (req, res, next) => {
     let bookID = Number.parseInt(req.params.id);
     if (!isValidID(bookID)) {
         next();
@@ -143,7 +143,7 @@ router.get('/books/edit/:id', (req, res, next) => {
 });
 
 //POST (add) a new book
-router.post('/books', (req, res, next) => {
+router.post('/book', (req, res, next) => {
     knex('books').returning('id').insert({
         title: req.body.title,
         genre: req.body.genre,
@@ -188,7 +188,7 @@ router.delete('/booksauthors/:id', (req, res, next) => {
 });
 
 //PUT (edit) a book with the specified id
-router.put('/books/:id', (req, res, next) => {
+router.put('/book/:id', (req, res, next) => {
 
     let bookID = Number.parseInt(req.params.id);
     if (!isValidID(bookID)) {
@@ -227,7 +227,7 @@ router.put('/books/:id', (req, res, next) => {
 }); //END PUT
 
 //DELETE a book with the specified id
-router.delete('/books/:id', (req, res, next) => {
+router.delete('/book/:id', (req, res, next) => {
     let bookID = Number.parseInt(req.params.id);
     if (!isValidID(bookID)) {
         next();
