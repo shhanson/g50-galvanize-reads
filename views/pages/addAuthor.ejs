@@ -1,62 +1,51 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Add an Author -- Galvanize Reads</title>
-        <link href="/css/reset.css" rel="stylesheet">
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+<%include ../partials/header %>
 
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </head>
-    <body>
-        <% include ../partials/navbar %>
+    <title>Add an Author -- Galvanize Reads</title>
+    <% include ../partials/navbar %>
         <div class="container">
-        <h3>Add an Author</h3>
-        <div class="row">
-            <form class="col s12" id="addAuthorForm" name="addAuthorForm">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="first_name" name="first_name" type="text" required>
-                        <label for="first_name">First name</label>
+            <h3>Add an Author</h3>
+            <div class="row">
+                <form class="col s12" id="addAuthorForm" name="addAuthorForm">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="first_name" name="first_name" type="text" required>
+                            <label for="first_name">First name</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="last_name" name="last_name" type="text" required>
-                        <label for="last_name">Last name</label>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="last_name" name="last_name" type="text" required>
+                            <label for="last_name">Last name</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s8">
-                        <textarea id="bio" name="bio" class="materialize-textarea" required></textarea>
-                        <label for="bio">Bio</label>
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <textarea id="bio" name="bio" class="materialize-textarea" required></textarea>
+                            <label for="bio">Bio</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="portrait_url" name="portrait_url" type="text" required>
-                        <label for="portrait_url">Portrait URL</label>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="portrait_url" name="portrait_url" type="text" required>
+                            <label for="portrait_url">Portrait URL</label>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="row">
-                    <button class="btn waves-effect waves-light orange" type="submit" name="action" id="addAuthor">Submit</button>
+                    <div class="row">
+                        <button class="btn waves-effect waves-light orange" type="submit" name="action" id="addAuthor">Submit</button>
 
-                </div>
+                    </div>
 
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
 
-        <% include ../partials/footer %>
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="/js/materialize.min.js"></script>
-        <script type="text/javascript" src="/js/authors.js"></script>
-    </body>
+            <% include ../partials/footer %>
+            <!--Import jQuery before materialize.js-->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="/js/materialize.min.js"></script>
+            <script type="text/javascript" src="/js/authors.js"></script>
+        </body>
+
 </html>

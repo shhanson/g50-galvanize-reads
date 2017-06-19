@@ -1,7 +1,7 @@
 'use strict';
 
 //Setup for knex stuff
-const env = 'production';
+const env = 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
@@ -114,6 +114,9 @@ router.get('/books/edit/:id', (req, res, next) => {
 
                     knex('authors').then((authors) => {
 
+                        //Sends a list of all authors for the user to choose from
+                        //Adds checked = true property to indicate to current author(s)
+                        //of the book.
                         let allAuthors = authors;
                         let actualAuthors = result[1];
 
@@ -169,6 +172,7 @@ router.post('/booksauthors', (req, res, next) => {
     });
 });
 
+//DELETE from the books_authors table
 router.delete('/booksauthors/:id', (req, res, next) => {
     let bookID = Number.parseInt(req.params.id);
     if(!isValidID(bookID)){
@@ -182,6 +186,7 @@ router.delete('/booksauthors/:id', (req, res, next) => {
     }
 
 });
+
 //PUT (edit) a book with the specified id
 router.put('/books/:id', (req, res, next) => {
 
@@ -190,9 +195,9 @@ router.put('/books/:id', (req, res, next) => {
         next();
     } else {
         //Query to fetch the book to be updated
-        getBook(bookID).then((result) => {
-            let bookOrig = result[0];
-            //If user did not provide info for a particular field, retain the former field info
+        getBook(bookID).then(() => {
+            //let bookOrig = result[0];
+
             let bookUpdated = {
                 title: req.body.title,
                 genre: req.body.genre,
@@ -229,9 +234,7 @@ router.delete('/books/:id', (req, res, next) => {
     } else {
         //book must be deleted from join table 'books_authors' before it can be removed from 'books'
         deleteBookFromJoinTable(bookID).then((result) => {
-            // if (result === 0) {
-            //     next();
-            // } else {
+
                 knex('books').where('id', bookID).del().then(() => {
                     res.sendStatus(200);
                 }).catch((err) => {

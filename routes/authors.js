@@ -1,7 +1,7 @@
 'use strict';
 
 //Setup for knex stuff
-const env = 'production';
+const env = 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
@@ -120,12 +120,8 @@ router.post('/authors', (req, res, next) => {
         bio: req.body.bio,
         portrait_url: req.body.portrait_url
     }).then((idArray) => {
-        //Render page with new author
+
         getAuthor(idArray[0]).then(() => {
-            // res.render('pages/author', {
-            //     author: result[0],
-            //     books: undefined
-            // });
             res.send(JSON.stringify(idArray[0]));
         }).catch((err) => {
             next(knexError(err));
@@ -141,9 +137,8 @@ router.put('/authors/:id', (req, res, next) => {
     if(!isValidID(authorID)){
         next();
     } else {
-        getAuthor(authorID).then( (result) => {
-            //If only some of the author info was provided for the edit, retain the previous //information
-            let authorOrig = result[0];
+        getAuthor(authorID).then( () => {
+            // let authorOrig = result[0];
             let updatedAuthor = {
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
