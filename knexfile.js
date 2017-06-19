@@ -1,7 +1,7 @@
 module.exports ={
     development: {
         client: 'pg',
-        connection: process.env.DATABASE_URL || 'postgres://localhost/greads_dev'
+        connection: 'postgres://localhost/greads_dev'
     },
 
     test: {
@@ -9,6 +9,8 @@ module.exports ={
     },
 
     production: {
+        client: 'pg',
+        connection: process.env.DATABASE_URL || 'postgres://localhost/greads_prod'
 
     }
 
