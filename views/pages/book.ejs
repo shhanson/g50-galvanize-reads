@@ -24,7 +24,7 @@
                         <% if(authors !== undefined && authors.length > 0) { %>
                             <h5>Written by:
                             <%for(let i = 0; i < authors.length; i++){ %>
-                                <a href="/authors/<%=authors[i].id%>" alt="<%=authors[i].last_name%>"><%= authors[i].first_name%> <%=authors[i].last_name %></a><%if(i !== authors.length-1){%>,<%}%>
+                                <a href="/author/<%=authors[i].id%>" alt="<%=authors[i].last_name%>"><%= authors[i].first_name%> <%=authors[i].last_name %></a><%if(i !== authors.length-1){%>,<%}%>
                             <%} %>
                             </h5>
                         <% } %>
