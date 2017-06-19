@@ -37,7 +37,7 @@
 
                                         </div>
                                     <div class="col s7">
-                                        <h5><a href="/book/<%=book.id%>"><%=book.title%></a></h5>
+                                        <h5><a href="/book/<%=book.id%>"><span class='title'><%=book.title%></span></a></h5>
                                         <h6>Genre: <span class='genre'><%=book.genre%></span></h6>
                                     </div>
                                 </div>
@@ -45,7 +45,9 @@
                         </div></li>
                         <%}); %>
                     </ul>
+                    <ul class="pagination"></ul>
                 </div>
+
             <%} %>
 
 

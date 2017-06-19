@@ -13,7 +13,8 @@
                     <h4>No authors yet!</h4>
                     <a class="waves-effect waves-light btn-large orange" href="/author/add"><i class="material-icons left">perm_identity</i>Add an Author</a>
                     <%} else { %>
-                        <h5> Total authors: <%=data.length%> </h5>
+                        <div id="authorsList">
+                        <h5 id="authorCount"> </h5>
                         <div class="container">
                         <form class="col s12">
                             <div class="input-field">
@@ -23,8 +24,9 @@
                             </div>
                         </form>
                         </div>
+                        <ul class="list">
                         <% for(let i = 0; i < data.length; i++){ %>
-                            <div class="col s12 m8 offset-m2 l6 offset-l3">
+                            <li><div class="col s12 m8 offset-m2 l6 offset-l3">
                                 <a href="/author/<%=data[i].id%>"><div class="card-panel grey lighten-5 z-depth-1">
                                     <div class="row valign-wrapper">
                                         <div class="col s3">
@@ -32,13 +34,18 @@
 
                                         </div>
                                         <div class="col s7">
-                                            <h5><%=data[i].first_name%> <%=data[i].last_name%></h5>
+                                            <h5><span class="name"><%=data[i].first_name%> <%=data[i].last_name%></span></h5>
                                         </div>
                                     </div>
                                 </div></a>
+                            </div></li>
+                            <%} %>
+                            </ul>
+
+                            <ul class="pagination"></ul>
+                        
                             </div>
                             <%} %>
-                                <%} %>
                                     <!-- END ELSE -->
 
 
@@ -51,6 +58,7 @@
             <!--Import jQuery before materialize.js-->
             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
             <script type="text/javascript" src="/js/materialize.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
             <script type="text/javascript" src="/js/authorList.js"></script>
 </body>
 

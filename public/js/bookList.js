@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
     let options = {
-        valueNames: ['id', 'genre']
+        valueNames: ['id', 'genre', 'title'],
+        page: 10,
+        pagination: true
     };
 
     let booksList = new List('booksList', options);
@@ -51,16 +53,5 @@ $(document).ready(function() {
         $('#bookSearch').val("");
 
     });
-
-
-
-
-
-
-
-
-
-
-
 
 }); //END ALL
