@@ -1,9 +1,11 @@
 'use strict';
 
 //Setup for knex stuff
-const env = 'production';
+const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
+
+console.log(env);
 
 //Setup for express server and router
 const express = require('express');
