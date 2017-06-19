@@ -1,7 +1,7 @@
 module.exports ={
     development: {
         client: 'pg',
-        connection: 'postgres://localhost/greads_dev'
+        connection: process.env.DATABASE_URL || 'postgres://localhost/greads_dev'
     },
 
     test: {
