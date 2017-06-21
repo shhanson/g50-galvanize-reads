@@ -43,15 +43,20 @@ $(document).ready(function() {
         $('#bookCount').text(`Showing ${booksList.size()} books`);
     });
 
-    $('#bookSearch').change(()=> {
-        console.log($('#bookSearch').val())
+    $('#bookSearchSubmit').click((event)=> {
+        event.preventDefault();
+        let searchVal = $('#bookSearch').val();
+        booksList.search(searchVal);
 
 
     });
 
     $('#clearBookSearch').click(()=>{
         $('#bookSearch').val("");
+        booksList.search();
 
     });
+
+
 
 }); //END ALL
