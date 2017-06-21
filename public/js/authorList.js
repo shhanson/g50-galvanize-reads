@@ -7,21 +7,27 @@ $(document).ready(function() {
     };
 
     let authorsList = new List('authorsList', options);
-    console.log(authorsList);
+    //console.log(authorsList);
 
     $('#authorCount').text(`Showing ${authorsList.size()} authors`);
 
 
-    $('#authorSearch').change(()=>{
+    $('#authorSearchSubmit').click((event)=>{
+        event.preventDefault();
+        let searchVal = $('#authorSearch').val();
+        authorsList.search(searchVal);
+        $('#authorCount').text(`Showing ${authorsList.visibleItems.length} authors`);
 
 
-        console.log($('#authorSearch').val());
 
 
     });
 
-    $('#clearAuthorSearch').click(()=>{
+    $('#clearAuthorSearch').click((event)=>{
+        event.preventDefault();
         $('#authorSearch').val("");
+        authorsList.search();
+        $('#authorCount').text(`Showing ${authorsList.size()} authors`);
     });
 
 

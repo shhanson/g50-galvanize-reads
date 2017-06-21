@@ -47,13 +47,16 @@ $(document).ready(function() {
         event.preventDefault();
         let searchVal = $('#bookSearch').val();
         booksList.search(searchVal);
+        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
 
 
     });
 
-    $('#clearBookSearch').click(()=>{
+    $('#clearBookSearch').click((event)=>{
+        event.preventDefault();
         $('#bookSearch').val("");
         booksList.search();
+        $('#bookCount').text(`Showing ${booksList.size()} books`);
 
     });
 
