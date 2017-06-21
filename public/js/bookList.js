@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $('#clearFilter').click(()=>{
         booksList.filter();
-        $('#bookCount').text(`Showing ${booksList.size()} books`);
+        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
     });
 
     $('#bookSearchSubmit').click((event)=> {
@@ -56,7 +56,7 @@ $(document).ready(function() {
         event.preventDefault();
         $('#bookSearch').val("");
         booksList.search();
-        $('#bookCount').text(`Showing ${booksList.size()} books`);
+        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
 
     });
 

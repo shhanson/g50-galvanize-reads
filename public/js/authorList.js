@@ -19,8 +19,6 @@ $(document).ready(function() {
         $('#authorCount').text(`Showing ${authorsList.visibleItems.length} authors`);
 
 
-
-
     });
 
     $('#clearAuthorSearch').click((event)=>{
