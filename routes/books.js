@@ -10,6 +10,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+//Validator Setup
+const ev = require('express-validation');
+const validations = require('../validations/books');
+
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -18,6 +23,7 @@ function isValidID(id) {
     return (id >= 1 && !Number.isNaN(id));
 }
 
+//Helper function to return a single book
 function getBook(id) {
     //Query to fetch a book from "books" with the given id
     return knex('books')
@@ -31,6 +37,7 @@ function getAuthorsForBook(bookID) {
         .where('books_authors.book_id', bookID).orderBy('authors.last_name');
 }
 
+//Helper function to delete from the books_authors join table
 function deleteBookFromJoinTable(bookID) {
     return knex('books_authors').where('book_id', bookID).del();
 }
@@ -49,6 +56,7 @@ function getBookWithAuthors(bookID) {
         });
 }
 
+//Knex error handling helper function
 function knexError(err) {
     console.error(err);
     err.status = 500;
@@ -143,7 +151,7 @@ router.get('/book/edit/:id', (req, res, next) => {
 });
 
 //POST (add) a new book
-router.post('/book', (req, res, next) => {
+router.post('/book', ev(validations.post), (req, res, next) => {
     knex('books').returning('id').insert({
         title: req.body.title,
         genre: req.body.genre,
@@ -188,7 +196,7 @@ router.delete('/booksauthors/:id', (req, res, next) => {
 });
 
 //PUT (edit) a book with the specified id
-router.put('/book/:id', (req, res, next) => {
+router.put('/book/:id', ev(validations.put), (req, res, next) => {
 
     let bookID = Number.parseInt(req.params.id);
     if (!isValidID(bookID)) {

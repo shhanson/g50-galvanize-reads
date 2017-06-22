@@ -1,6 +1,6 @@
 <% include ../partials/header %>
     <title>Add a Book -- Galvanize Reads</title>
-    
+
     <% include ../partials/navbar %>
     <div class='container'>
         <h3>Add a Book</h3>
@@ -35,7 +35,7 @@
                     <div class="input-field col s6">
                         <select id="authorsMenu" multiple required>
                             <option value="" disabled>Choose author(s)</option>
-                            <<% authors.forEach((author) => { %>
+                            <% authors.forEach((author) => { %>
 
                                 <option id="<%=author.id%>"><%=author.first_name%> <%=author.last_name%></option>
 
