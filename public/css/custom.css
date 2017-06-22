@@ -2,6 +2,11 @@ a {
     color: darkorange;
 }
 
+footer {
+    bottom: 0;
+    overflow: hidden;
+}
+
 .banner {
     background-image: url('/img/pexels-photo-106116.jpeg');
     background-repeat: no-repeat;
