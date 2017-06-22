@@ -1,35 +1,35 @@
 $(document).ready(function() {
 
-    let options = {
+    const options = {
         valueNames: ['id', 'name'],
         page: 10,
         pagination: true
     };
 
-    let authorsList = new List('authorsList', options);
-    //console.log(authorsList);
+    const authorsList = new List('authorsList', options);
 
-    $('#authorCount').text(`Showing ${authorsList.size()} authors`);
+    //Display the total number of authors
+    updateCount();
 
-
+    //Event listener for searchbox submission
     $('#authorSearchSubmit').click((event)=>{
         event.preventDefault();
         let searchVal = $('#authorSearch').val();
         authorsList.search(searchVal);
-        $('#authorCount').text(`Showing ${authorsList.visibleItems.length} authors`);
-
-
+        updateCount();
     });
 
+    //Event listener for searchbox clear
     $('#clearAuthorSearch').click((event)=>{
         event.preventDefault();
         $('#authorSearch').val("");
         authorsList.search();
-        $('#authorCount').text(`Showing ${authorsList.size()} authors`);
+        updateCount();
     });
 
-
-
-
+    //Helper function
+    function updateCount(){
+        $('#authorCount').text(`Showing ${authorsList.visibleItems.length} author${(authorsList.visibleItems.length === 1) ? '' : 's'}`);
+    }
 
 }); //END ALL

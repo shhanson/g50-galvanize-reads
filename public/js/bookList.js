@@ -1,17 +1,22 @@
 $(document).ready(function() {
 
-    let options = {
+    const options = {
         valueNames: ['id', 'genre', 'title'],
         page: 10,
         pagination: true
     };
 
-    let booksList = new List('booksList', options);
+    const booksList = new List('booksList', options);
 
-    $('#bookCount').text(`Showing ${booksList.size()} books`);
+    updateCount();
 
+    //Gathers the elements with the "genre" class from the page and creates an Array
+    //containing each genre (no dupes).
     let uniqueGenres = Array.from( new Set($.map($(".genre"), $.text)) );
 
+    //For each genre in genreList, create an li element.
+    //Create a listener for each genre li
+    //When a genre is clicked, only the books with that genre will be displayed.
     uniqueGenres.forEach(function(genre){
 
         let $li = $('<li></li>');
@@ -21,45 +26,44 @@ $(document).ready(function() {
 
         $li.click((event)=>{
             let clickedGenre = event.target.innerText;
-
-            let filteredList = booksList.filter(function(item){
+            booksList.filter(function(item){
                 if(item.values().genre === clickedGenre){
                     return true;
                 } else{
                     return false;
                 }
             });
-
-            $('#bookCount').text(`Showing ${filteredList.length} books`);
+            updateCount();
         });
-
         $('#genreList').append($li);
-
     });
 
-
+    //Listener for "clear filter" link
     $('#clearFilter').click(()=>{
         booksList.filter();
-        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
+        updateCount();
     });
 
+
+    //Listener for searchbox
     $('#bookSearchSubmit').click((event)=> {
         event.preventDefault();
         let searchVal = $('#bookSearch').val();
         booksList.search(searchVal);
-        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
-
-
+        updateCount();
     });
 
+    //Listener for clear searchbox
     $('#clearBookSearch').click((event)=>{
         event.preventDefault();
         $('#bookSearch').val("");
         booksList.search();
-        $('#bookCount').text(`Showing ${booksList.visibleItems.length} books`);
-
+        updateCount();
     });
 
-
+    //Helper function
+    function updateCount(){
+        $('#bookCount').text(`Showing ${booksList.visibleItems.length} book${(booksList.visibleItems.length === 1) ? '' : 's'}`);
+    }
 
 }); //END ALL
