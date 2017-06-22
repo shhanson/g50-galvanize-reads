@@ -8,6 +8,7 @@ $(document).ready(function() {
 
     const booksList = new List('booksList', options);
 
+    //Displays the total number of books
     updateCount();
 
     //Gathers the elements with the "genre" class from the page and creates an Array
@@ -20,19 +21,16 @@ $(document).ready(function() {
     uniqueGenres.forEach(function(genre){
 
         let $li = $('<li></li>');
-        let $a = $('<a href="#"></a>');
+        let $a = $('<a href="#" class="genreLink"></a>');
         $li.append($a);
         $a.text(genre);
 
         $li.click((event)=>{
             let clickedGenre = event.target.innerText;
-            booksList.filter(function(item){
-                if(item.values().genre === clickedGenre){
-                    return true;
-                } else{
-                    return false;
-                }
-            });
+            $('.genreLink').css('background-color', 'transparent');
+            $a.css('background-color', 'yellow');
+            booksList.filter((item) =>
+                 (item.values().genre === clickedGenre) ? true : false);
             updateCount();
         });
         $('#genreList').append($li);
@@ -40,6 +38,7 @@ $(document).ready(function() {
 
     //Listener for "clear filter" link
     $('#clearFilter').click(()=>{
+        $('.genreLink').css('background-color', 'transparent');
         booksList.filter();
         updateCount();
     });
