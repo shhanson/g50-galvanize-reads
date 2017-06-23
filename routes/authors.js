@@ -10,6 +10,10 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
+//Input validator setup
+const ev = require('express-validation');
+const validations = require('../validations/authors');
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -112,7 +116,7 @@ router.get('/author/:id', (req, res, next) => {
 });
 
 //POST (add) a new author
-router.post('/author', (req, res, next) => {
+router.post('/author', ev(validations.post), (req, res, next) => {
 
     knex('authors').returning('id').insert({
         first_name: req.body.first_name,
@@ -132,7 +136,7 @@ router.post('/author', (req, res, next) => {
 });
 
 //PUT (edit) an author with the specified ID
-router.put('/author/:id', (req, res, next) => {
+router.put('/author/:id', ev(validations.put), (req, res, next) => {
     let authorID = Number.parseInt(req.params.id);
     if(!isValidID(authorID)){
         next();
